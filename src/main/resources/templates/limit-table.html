@@ -16,6 +16,7 @@
                     <th>Data od</th>
                     <th>Data do</th>
                     <th>Wykorzystano</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,12 @@
                     <td th:text="${#temporals.format(limit.dateFrom, 'dd.MM.yyyy')}">01.01.2024</td>
                     <td th:text="${#temporals.format(limit.dateTo, 'dd.MM.yyyy')}">31.12.2024</td>
                     <td class="text-end" th:text="${#numbers.formatDecimal(limit.used, 1, 'WHITESPACE', 2, 'COMMA')}">500.00 PLN</td>
+                    <td>
+                        <span th:class="${'badge ' + (limit.status.name() == 'ACTIVE' ? 'text-bg-success' : 
+                                        (limit.status.name() == 'USED_UP' ? 'text-bg-warning' : 'text-bg-danger'))}" 
+                              th:text="${limit.status.name() == 'ACTIVE' ? 'Aktywny' : 
+                                        (limit.status.name() == 'USED_UP' ? 'Wykorzystany' : 'Przeterminowany')}">Status</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
