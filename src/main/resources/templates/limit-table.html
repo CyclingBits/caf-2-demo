@@ -21,12 +21,26 @@
                     <th>Wykorzystano</th>
                     <th>Zawieszony</th>
                     <th>Status</th>
+                    <th>Aktualny CAF</th>
                 </tr>
             </thead>
             <tbody>
                 <th:block th:each="limit, limitStat : ${limits}">
-                    <tr th:id="'limit-row-' + ${limit.id}" class="cursor-pointer" style="cursor: pointer;" 
-                        th:onclick="'toggleActionRow(' + ${limit.id} + ')'">
+                    <tr th:id="'limit-row-' + ${limit.id}" class="cursor-pointer" style="cursor: pointer;">
+                        <th:block th:if="${activeCafs[limit.id] != null}">
+                            <script th:inline="javascript">
+                                document.getElementById('limit-row-' + [[${limit.id}]]).onclick = function() {
+                                    window.location.href = '/caf/' + [[${activeCafs[limit.id].id}]];
+                                };
+                            </script>
+                        </th:block>
+                        <th:block th:unless="${activeCafs[limit.id] != null}">
+                            <script th:inline="javascript">
+                                document.getElementById('limit-row-' + [[${limit.id}]]).onclick = function() {
+                                    toggleActionRow([[${limit.id}]]);
+                                };
+                            </script>
+                        </th:block>                        
                         <td th:text="${limit.id}">1</td>
                         <td th:text="${limit.type}">RETAIL</td>
                         <td class="text-end" th:text="${#numbers.formatDecimal(limit.value, 1, 'WHITESPACE', 2, 'COMMA')}">10000.00 PLN</td>
@@ -53,9 +67,16 @@
                                             (limit.status.name() == 'USED_UP' ? 'Wykorzystany' : 
                                             (limit.status.name() == 'SUSPENDED' ? 'Zawieszony' : 'Przeterminowany'))}">Status</span>
                         </td>
+                        <td>
+                            <span th:if="${activeCafs[limit.id] != null}" 
+                                  th:class="${'badge ' + (activeCafs[limit.id].type.name() == 'INCREASE' ? 'text-bg-primary' : 
+                                               (activeCafs[limit.id].type.name() == 'EXTENSION' ? 'text-bg-warning' : 'text-bg-danger'))}" 
+                                  th:text="${activeCafs[limit.id].type.name() == 'INCREASE' ? 'Zwiększenie' : 
+                                             (activeCafs[limit.id].type.name() == 'EXTENSION' ? 'Przedłużenie' : 'Zawieszenie')}">CAF</span>
+                        </td>
                     </tr>
                     <tr th:id="'limit-actions-' + ${limit.id}" style="display: none;">
-                        <td colspan="13" class="bg-light">
+                        <td colspan="14" class="bg-light">
                             <div class="d-flex gap-2 justify-content-center py-2">
                                 <form th:action="@{/limit/{limitId}/caf/increase(limitId=${limit.id})}" method="post">
                                     <button type="submit" class="btn btn-primary btn-sm">Zwiększ</button>

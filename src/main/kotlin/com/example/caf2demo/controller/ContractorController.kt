@@ -1,4 +1,6 @@
 package com.example.caf2demo.controller
+import com.example.caf2demo.model.CafStatus
+import com.example.caf2demo.service.CafService
 import com.example.caf2demo.service.ContractorService
 import com.example.caf2demo.service.LimitService
 import org.springframework.stereotype.Controller
@@ -7,7 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
-class ContractorController(private val contractorService: ContractorService, private val limitService: LimitService) {
+class ContractorController(
+    private val contractorService: ContractorService, 
+    private val limitService: LimitService,
+    private val cafService: CafService
+) {
     @GetMapping("/")
     fun home(model: Model): String {
         model.addAttribute("contractors", contractorService.getAllContractors())
@@ -39,7 +45,16 @@ class ContractorController(private val contractorService: ContractorService, pri
         @PathVariable id: Long,
         model: Model,
     ): String {
-        model.addAttribute("limits", limitService.getLimitsByContractorId(id))
+        val limits = limitService.getLimitsByContractorId(id)
+        
+        // Get active CAFs for limits and create a map by limit ID
+        val activeCafs = limits.associateBy(
+            { it.id!! },
+            { cafService.getActiveCafForLimit(it.id!!) }
+        ).filterValues { it != null }
+        
+        model.addAttribute("limits", limits)
+        model.addAttribute("activeCafs", activeCafs)
         return "limit-table :: limitsList"
     }
 }

@@ -28,8 +28,20 @@ class CafService(private val cafRepository: CafRepository, private val limitRepo
         cafType: CafType,
     ): Caf? {
         val limit = limitRepository.findById(limitId).orElse(null) ?: return null
+        
+        // Check if there's already an active CAF for this limit
+        val existingCaf = getActiveCafForLimit(limitId)
+        if (existingCaf != null) {
+            return existingCaf
+        }
+        
         val caf = Caf(limit = limit, type = cafType, status = CafStatus.IN_PROGRESS)
         return cafRepository.save(caf)
+    }
+    
+    fun getActiveCafForLimit(limitId: Long): Caf? {
+        return cafRepository.findByLimitId(limitId)
+            .firstOrNull { it.status == CafStatus.IN_PROGRESS }
     }
 
     @Transactional
