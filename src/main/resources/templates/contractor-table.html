@@ -8,6 +8,7 @@
                     <th>ID</th>
                     <th>NIP</th>
                     <th>Nazwa</th>
+                    <th>Przeterminowanie</th>
                     <th>Wykorzystanie</th>
                     <th>CAF w trakcie</th>
                 </tr>
@@ -20,6 +21,9 @@
                     <td th:text="${contractor.id}">1</td>
                     <td th:text="${contractor.nip}">1234567890</td>
                     <td th:text="${contractor.name}">Nazwa firmy</td>
+                    <td th:class="${oldestExpiryDates.get(contractor.id) != null && oldestExpiryDates.get(contractor.id).isBefore(currentDate.plusMonths(1))
+                         ? 'text-danger fw-bold' : ''}"
+                        th:text="${oldestExpiryDates.get(contractor.id) != null ? #temporals.format(oldestExpiryDates.get(contractor.id), 'dd.MM.yyyy') : '-'}">31.12.2024</td>
                     <td th:class="${maxUtilization.get(contractor.id) > 0 && maxUtilization.get(contractor.id) >= 90 ? 'text-danger fw-bold' : ''}"
                         th:text="${maxUtilization.get(contractor.id) > 0 ? maxUtilization.get(contractor.id) + '%' : '-'}">25%</td>
                     <td>

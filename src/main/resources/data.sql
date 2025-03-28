@@ -9,40 +9,30 @@ INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_
 VALUES (1, 'RETAIL', 100000.00, 'PLN', '2024-01-01', '2025-12-31', 95000.00, false, 'LEASING', true, false);
 
 INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan) 
-VALUES (1, 'RETAIL', 50000.00, 'EUR', '2024-01-01', '2024-12-31', 5000.00, true, 'ATHLON', false, true);
+VALUES (1, 'RETAIL', 50000.00, 'EUR', '2024-01-01', '2025-12-31', 5000.00, true, 'ATHLON', false, true);
 
 INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan) 
 VALUES (2, 'RETAIL', 75000.00, 'PLN', '2024-01-01', '2025-12-31', 15000.00, false, 'LEASING', true, true);
 
 INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan) 
-VALUES (3, 'RETAIL', 200000.00, 'PLN', '2024-01-01', '2024-12-31', 50000.00, false, 'ATHLON', false, false);
+VALUES (3, 'RETAIL', 200000.00, 'PLN', '2024-01-01', '2025-04-10', 50000.00, false, 'ATHLON', false, false);
 
 -- Initialize CAF records
 INSERT INTO caf (limit_id, type, status) VALUES (1, 'INCREASE', 'IN_PROGRESS');
 INSERT INTO caf (limit_id, type, status) VALUES (3, 'SUSPENSION', 'IN_PROGRESS');
-INSERT INTO caf (limit_id, type, status) VALUES (4, 'INCREASE', 'IN_PROGRESS');
 
 -- Initialize CAF requirements
--- For CAF 1 (INCREASE, COMPLETED)
 INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (1, 'IZP', true);
 INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (1, 'RATING', true);
 INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (1, 'CAUSE', true);
 INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (1, 'ANALYSIS', true);
 INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (1, 'APPROVAL', true);
 
--- For CAF 2 (EXTENSION, IN_PROGRESS)
 INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (2, 'IZP', false);
 INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (2, 'RATING', false);
 INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (2, 'CAUSE', false);
 INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (2, 'ANALYSIS', false);
 INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (2, 'APPROVAL', false);
-
--- For CAF 3 (SUSPENSION, COMPLETED)
-INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (3, 'IZP', false);
-INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (3, 'RATING', false);
-INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (3, 'CAUSE', false);
-INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (3, 'ANALYSIS', false);
-INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (3, 'APPROVAL', false);
 
 -- Initialize IZP records
 INSERT INTO izp (points, contractor_id, date) 

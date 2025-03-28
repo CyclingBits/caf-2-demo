@@ -9,6 +9,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import java.math.BigDecimal
+import java.time.LocalDate
 
 @Controller
 class ContractorController(
@@ -23,6 +24,7 @@ class ContractorController(
         // For each contractor, get limits and then CAFs in IN_PROGRESS status and max utilization
         val contractorInProgressCafTypes = mutableMapOf<Long, List<CafType>>()
         val contractorMaxUtilization = mutableMapOf<Long, Int>()
+        val contractorOldestExpiryDate = mutableMapOf<Long, LocalDate?>()
 
         contractors.forEach { contractor ->
             val limits = limitService.getLimitsByContractorId(contractor.id)
@@ -30,12 +32,18 @@ class ContractorController(
 
             // Calculate max utilization percentage for this contractor
             var maxUtilizationPercent = 0
+            var oldestExpiryDate: LocalDate? = null
             limits.forEach { limit ->
                 if (limit.value > BigDecimal.ZERO) {
                     val utilizationPercent = (limit.used * BigDecimal(100) / limit.value).toInt()
                     if (utilizationPercent > maxUtilizationPercent) {
                         maxUtilizationPercent = utilizationPercent
                     }
+                }
+
+                // Track the oldest expiry date
+                if (oldestExpiryDate == null || (limit.dateTo.isBefore(oldestExpiryDate))) {
+                    oldestExpiryDate = limit.dateTo
                 }
 
                 val cafs = cafService.getCafsByLimitId(limit.id!!)
@@ -47,11 +55,14 @@ class ContractorController(
 
             contractorInProgressCafTypes[contractor.id] = inProgressCafs
             contractorMaxUtilization[contractor.id] = maxUtilizationPercent
+            contractorOldestExpiryDate[contractor.id] = oldestExpiryDate
         }
 
         model.addAttribute("contractors", contractors)
         model.addAttribute("inProgressCafTypes", contractorInProgressCafTypes)
         model.addAttribute("maxUtilization", contractorMaxUtilization)
+        model.addAttribute("oldestExpiryDates", contractorOldestExpiryDate)
+        model.addAttribute("currentDate", LocalDate.now())
         return "index"
     }
 
@@ -62,6 +73,7 @@ class ContractorController(
         // For each contractor, get limits and then CAFs in IN_PROGRESS status and max utilization
         val contractorInProgressCafTypes = mutableMapOf<Long, List<CafType>>()
         val contractorMaxUtilization = mutableMapOf<Long, Int>()
+        val contractorOldestExpiryDate = mutableMapOf<Long, LocalDate?>()
 
         contractors.forEach { contractor ->
             val limits = limitService.getLimitsByContractorId(contractor.id)
@@ -69,12 +81,18 @@ class ContractorController(
 
             // Calculate max utilization percentage for this contractor
             var maxUtilizationPercent = 0
+            var oldestExpiryDate: LocalDate? = null
             limits.forEach { limit ->
                 if (limit.value > BigDecimal.ZERO) {
                     val utilizationPercent = (limit.used * BigDecimal(100) / limit.value).toInt()
                     if (utilizationPercent > maxUtilizationPercent) {
                         maxUtilizationPercent = utilizationPercent
                     }
+                }
+
+                // Track the oldest expiry date
+                if (oldestExpiryDate == null || (limit.dateTo.isBefore(oldestExpiryDate))) {
+                    oldestExpiryDate = limit.dateTo
                 }
 
                 val cafs = cafService.getCafsByLimitId(limit.id!!)
@@ -86,11 +104,14 @@ class ContractorController(
 
             contractorInProgressCafTypes[contractor.id] = inProgressCafs
             contractorMaxUtilization[contractor.id] = maxUtilizationPercent
+            contractorOldestExpiryDate[contractor.id] = oldestExpiryDate
         }
 
         model.addAttribute("contractors", contractors)
         model.addAttribute("inProgressCafTypes", contractorInProgressCafTypes)
         model.addAttribute("maxUtilization", contractorMaxUtilization)
+        model.addAttribute("oldestExpiryDates", contractorOldestExpiryDate)
+        model.addAttribute("currentDate", LocalDate.now())
         return "contractor-table :: contractorsList"
     }
 
