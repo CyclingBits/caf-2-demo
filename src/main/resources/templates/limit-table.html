@@ -24,34 +24,46 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="limit : ${limits}">
-                    <td th:text="${limit.id}">1</td>
-                    <td th:text="${limit.type}">RETAIL</td>
-                    <td class="text-end" th:text="${#numbers.formatDecimal(limit.value, 1, 'WHITESPACE', 2, 'COMMA')}">10000.00 PLN</td>
-                    <td th:text="${limit.currency}">PLN</td>
-                    <td th:text="${limit.company}">LEASING</td>
-                    <td>
-                        <span th:if="${limit.leasing}" class="badge text-bg-success">Tak</span>
-                        <span th:unless="${limit.leasing}" class="badge text-bg-secondary">Nie</span>
-                    </td>
-                    <td>
-                        <span th:if="${limit.loan}" class="badge text-bg-success">Tak</span>
-                        <span th:unless="${limit.loan}" class="badge text-bg-secondary">Nie</span>
-                    </td>
-                    <td th:text="${#temporals.format(limit.dateFrom, 'dd.MM.yyyy')}">01.01.2024</td>
-                    <td th:text="${#temporals.format(limit.dateTo, 'dd.MM.yyyy')}">31.12.2024</td>
-                    <td class="text-end" th:text="${#numbers.formatDecimal(limit.used, 1, 'WHITESPACE', 2, 'COMMA')}">500.00 PLN</td>
-                    <td>
-                        <span th:if="${limit.suspended}" class="badge text-bg-danger">Zawieszony</span>
-                    </td>
-                    <td>
-                        <span th:class="${'badge ' + (limit.status.name() == 'ACTIVE' ? 'text-bg-success' : 
-                                        (limit.status.name() == 'USED_UP' ? 'text-bg-warning' : 'text-bg-danger'))}" 
-                              th:text="${limit.status.name() == 'ACTIVE' ? 'Aktywny' : 
-                                        (limit.status.name() == 'USED_UP' ? 'Wykorzystany' : 
-                                        (limit.status.name() == 'SUSPENDED' ? 'Zawieszony' : 'Przeterminowany'))}">Status</span>
-                    </td>
-                </tr>
+                <th:block th:each="limit, limitStat : ${limits}">
+                    <tr th:id="'limit-row-' + ${limit.id}" class="cursor-pointer" style="cursor: pointer;" 
+                        th:onclick="'toggleActionRow(' + ${limit.id} + ')'">
+                        <td th:text="${limit.id}">1</td>
+                        <td th:text="${limit.type}">RETAIL</td>
+                        <td class="text-end" th:text="${#numbers.formatDecimal(limit.value, 1, 'WHITESPACE', 2, 'COMMA')}">10000.00 PLN</td>
+                        <td th:text="${limit.currency}">PLN</td>
+                        <td th:text="${limit.company}">LEASING</td>
+                        <td>
+                            <span th:if="${limit.leasing}" class="badge text-bg-success">Tak</span>
+                            <span th:unless="${limit.leasing}" class="badge text-bg-secondary">Nie</span>
+                        </td>
+                        <td>
+                            <span th:if="${limit.loan}" class="badge text-bg-success">Tak</span>
+                            <span th:unless="${limit.loan}" class="badge text-bg-secondary">Nie</span>
+                        </td>
+                        <td th:text="${#temporals.format(limit.dateFrom, 'dd.MM.yyyy')}">01.01.2024</td>
+                        <td th:text="${#temporals.format(limit.dateTo, 'dd.MM.yyyy')}">31.12.2024</td>
+                        <td class="text-end" th:text="${#numbers.formatDecimal(limit.used, 1, 'WHITESPACE', 2, 'COMMA')}">500.00 PLN</td>
+                        <td>
+                            <span th:if="${limit.suspended}" class="badge text-bg-danger">Zawieszony</span>
+                        </td>
+                        <td>
+                            <span th:class="${'badge ' + (limit.status.name() == 'ACTIVE' ? 'text-bg-success' : 
+                                            (limit.status.name() == 'USED_UP' ? 'text-bg-warning' : 'text-bg-danger'))}" 
+                                th:text="${limit.status.name() == 'ACTIVE' ? 'Aktywny' : 
+                                            (limit.status.name() == 'USED_UP' ? 'Wykorzystany' : 
+                                            (limit.status.name() == 'SUSPENDED' ? 'Zawieszony' : 'Przeterminowany'))}">Status</span>
+                        </td>
+                    </tr>
+                    <tr th:id="'limit-actions-' + ${limit.id}" style="display: none;">
+                        <td colspan="13" class="bg-light">
+                            <div class="d-flex gap-2 justify-content-center py-2">
+                                <button class="btn btn-primary btn-sm">Zwiększ</button>
+                                <button class="btn btn-warning btn-sm">Przedłóż</button>
+                                <button class="btn btn-danger btn-sm">Zawieś</button>
+                            </div>
+                        </td>
+                    </tr>
+                </th:block>
             </tbody>
         </table>
     </div>
