@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="izpList">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Punkty</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="izp : ${izpList}">
+                    <td th:text="${izp.id}">1</td>
+                    <td th:text="${izp.points}">100</td>
+                    <td th:text="${#temporals.format(izp.date, 'yyyy-MM-dd')}">2024-01-01</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
