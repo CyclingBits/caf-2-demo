@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szczegóły CAF</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h1 class="card-title">Edycja CAF</h1>
+                <div class="d-flex gap-2">
+                    <form th:action="@{/caf/{id}/delete(id=${caf.id})}" method="post">
+                        <button type="submit" class="btn btn-danger">Anuluj CAF</button>
+                    </form>
+                    <a th:href="@{/contractor/{id}(id=${caf.limit.contractor.id})}" class="btn btn-primary">Powrót</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3" th:if="${caf}">
+                    <div class="col-md-6">
+                        <h4>Kontrahent</h4>
+                        <table class="table">
+                            <tr>
+                                <th>ID kontrahenta:</th>
+                                <td th:text="${caf.limit.contractor.id}">1</td>
+                            </tr>
+                            <tr>
+                                <th>Nazwa:</th>
+                                <td th:text="${caf.limit.contractor.name}">Nazwa kontrahenta</td>
+                            </tr>
+                            <tr>
+                                <th>NIP:</th>
+                                <td th:text="${caf.limit.contractor.nip}">1234567890</td>
+                            </tr>
+                            <tr>
+                                <th>Ostatni rating:</th>
+                                <td th:if="${latestRating}" th:text="${latestRating.points}">75</td>
+                                <td th:unless="${latestRating}">Brak danych</td>
+                            </tr>
+                            <tr>
+                                <th>Ostatni IZP:</th>
+                                <td th:if="${latestIzp}" th:text="${latestIzp.points}">85</td>
+                                <td th:unless="${latestIzp}">Brak danych</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h4>Limit</h4>
+                        <table class="table">
+                            <tr>
+                                <th>ID limitu:</th>
+                                <td th:text="${caf.limit.id}">1</td>
+                            </tr>
+                            <tr>
+                                <th>Typ limitu:</th>
+                                <td th:text="${caf.limit.type}">RETAIL</td>
+                            </tr>
+                            <tr>
+                                <th>Wartość limitu:</th>
+                                <td th:text="${#numbers.formatDecimal(caf.limit.value, 1, 'WHITESPACE', 2, 'COMMA')} + ' ' + ${caf.limit.currency}">10000.00 PLN</td>
+                            </tr>
+                            <tr>
+                                <th>Waluta:</th>
+                                <td th:text="${caf.limit.currency}">PLN</td>
+                            </tr>
+                            <tr>
+                                <th>Spółka:</th>
+                                <td th:text="${caf.limit.company} ?: '-'">LEASING</td>
+                            </tr>
+                            <tr>
+                                <th>Leasing:</th>
+                                <td>
+                                    <span th:if="${caf.limit.leasing}" class="badge text-bg-success">Tak</span>
+                                    <span th:unless="${caf.limit.leasing}" class="badge text-bg-secondary">Nie</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Kredyt:</th>
+                                <td>
+                                    <span th:if="${caf.limit.loan}" class="badge text-bg-success">Tak</span>
+                                    <span th:unless="${caf.limit.loan}" class="badge text-bg-secondary">Nie</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Data od:</th>
+                                <td th:text="${#temporals.format(caf.limit.dateFrom, 'dd.MM.yyyy')}">01.01.2023</td>
+                            </tr>
+                            <tr>
+                                <th>Data do:</th>
+                                <td th:text="${#temporals.format(caf.limit.dateTo, 'dd.MM.yyyy')}">31.12.2023</td>
+                            </tr>
+                            <tr>
+                                <th>Wykorzystanie:</th>
+                                <td th:text="${#numbers.formatDecimal(caf.limit.used, 1, 'WHITESPACE', 2, 'COMMA')} + ' ' + ${caf.limit.currency} + ' (' + ${#numbers.formatPercent(caf.limit.used.divide(caf.limit.value, 4), 1, 2)} + ')'">2500.00 PLN (25.00%)</td>
+                            </tr>
+                            <tr>
+                                <th>Zawieszony:</th>
+                                <td>
+                                    <span th:if="${caf.limit.suspended}" class="badge text-bg-danger">Tak</span>
+                                    <span th:unless="${caf.limit.suspended}" class="badge text-bg-success">Nie</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Status:</th>
+                                <td>
+                                    <span th:if="${caf.limit.status.name() == 'ACTIVE'}" class="badge text-bg-success">Aktywny</span>
+                                    <span th:if="${caf.limit.status.name() == 'USED_UP'}" class="badge text-bg-warning">Wykorzystany</span>
+                                    <span th:if="${caf.limit.status.name() == 'EXPIRED'}" class="badge text-bg-danger">Wygasły</span>
+                                    <span th:if="${caf.limit.status.name() == 'SUSPENDED'}" class="badge text-bg-secondary">Zawieszony</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <h4>CAF</h4>
+                        <table class="table">
+                            <tr>
+                                <th>ID:</th>
+                                <td th:text="${caf.id}">1</td>
+                            </tr>
+                            <tr>
+                                <th>Typ:</th>
+                                <td>
+                                    <span th:if="${caf.type.name() == 'INCREASE'}" class="badge text-bg-primary">Zwiększenie</span>
+                                    <span th:if="${caf.type.name() == 'EXTENSION'}" class="badge text-bg-warning">Przedłużenie</span>
+                                    <span th:if="${caf.type.name() == 'SUSPENSION'}" class="badge text-bg-danger">Zawieszenie</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Status:</th>
+                                <td>
+                                    <span th:if="${caf.status.name() == 'IN_PROGRESS'}" class="badge text-bg-info">W trakcie</span>
+                                    <span th:if="${caf.status.name() == 'COMPLETED'}" class="badge text-bg-success">Zakończony</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+
+                    
+                    <!-- Requirements Section -->
+                    <div class="col-md-12 mt-4">
+                        <h4>Wymagania CAF</h4>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Symbol</th>
+                                        <th>Opis</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="req : ${requirements}">
+                                        <td th:text="${req.id}">1</td>
+                                        <td th:text="${req.requirement.symbol}">IZP</td>
+                                        <td th:text="${req.requirement.description}">Aktualny IZP</td>
+                                        <td>
+                                            <span th:if="${req.fulfilled}" class="badge text-bg-success">Spełnione</span>
+                                            <span th:unless="${req.fulfilled}" class="badge text-bg-danger">Niespełnione</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-danger" th:unless="${caf}">
+                    Nie znaleziono CAF.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

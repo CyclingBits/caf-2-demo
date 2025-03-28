@@ -2,7 +2,9 @@ package com.example.caf2demo.controller
 
 import com.example.caf2demo.model.CafType
 import com.example.caf2demo.service.CafService
+import com.example.caf2demo.service.IzpService
 import com.example.caf2demo.service.LimitService
+import com.example.caf2demo.service.RatingService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -10,7 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 
 @Controller
-class CafController(private val cafService: CafService, private val limitService: LimitService) {
+class CafController(
+    private val cafService: CafService,
+    private val limitService: LimitService,
+    private val ratingService: RatingService,
+    private val izpService: IzpService,
+) {
     @PostMapping("/limit/{limitId}/caf/increase")
     fun createIncreaseCaf(
         @PathVariable limitId: Long,
@@ -60,9 +67,23 @@ class CafController(private val cafService: CafService, private val limitService
             // Get the requirements list for this CAF
             val requirements = cafService.getRequirementsForCaf(caf.id!!)
 
+            // Get the contractor ID
+            val contractorId = caf.limit.contractor.id
+
+            // Get latest rating for the contractor
+            val ratings = ratingService.getRatingsByContractorId(contractorId)
+            val latestRating = ratings.maxByOrNull { it.date }
+
+            // Get latest IZP for the contractor
+            val izps = izpService.getIzpByContractorId(contractorId)
+            val latestIzp = izps.maxByOrNull { it.date }
+
             model.addAttribute("caf", caf)
             model.addAttribute("requirements", requirements)
-            return "caf-details"
+            model.addAttribute("latestRating", latestRating)
+            model.addAttribute("latestIzp", latestIzp)
+
+            return "caf-edit"
         }
         return "redirect:/"
     }
