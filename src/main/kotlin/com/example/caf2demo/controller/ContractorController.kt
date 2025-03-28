@@ -1,4 +1,6 @@
 package com.example.caf2demo.controller
+import com.example.caf2demo.model.CafStatus
+import com.example.caf2demo.model.CafType
 import com.example.caf2demo.service.CafService
 import com.example.caf2demo.service.ContractorService
 import com.example.caf2demo.service.LimitService
@@ -15,13 +17,55 @@ class ContractorController(
 ) {
     @GetMapping("/")
     fun home(model: Model): String {
-        model.addAttribute("contractors", contractorService.getAllContractors())
+        val contractors = contractorService.getAllContractors()
+
+        // For each contractor, get limits and then CAFs in IN_PROGRESS status
+        val contractorInProgressCafTypes = mutableMapOf<Long, List<CafType>>()
+
+        contractors.forEach { contractor ->
+            val limits = limitService.getLimitsByContractorId(contractor.id)
+            val inProgressCafs = mutableListOf<CafType>()
+
+            limits.forEach { limit ->
+                val cafs = cafService.getCafsByLimitId(limit.id!!)
+                inProgressCafs.addAll(
+                    cafs.filter { it.status == CafStatus.IN_PROGRESS }
+                        .map { it.type },
+                )
+            }
+
+            contractorInProgressCafTypes[contractor.id] = inProgressCafs
+        }
+
+        model.addAttribute("contractors", contractors)
+        model.addAttribute("inProgressCafTypes", contractorInProgressCafTypes)
         return "index"
     }
 
     @GetMapping("/contractors")
     fun getContractors(model: Model): String {
-        model.addAttribute("contractors", contractorService.getAllContractors())
+        val contractors = contractorService.getAllContractors()
+
+        // For each contractor, get limits and then CAFs in IN_PROGRESS status
+        val contractorInProgressCafTypes = mutableMapOf<Long, List<CafType>>()
+
+        contractors.forEach { contractor ->
+            val limits = limitService.getLimitsByContractorId(contractor.id)
+            val inProgressCafs = mutableListOf<CafType>()
+
+            limits.forEach { limit ->
+                val cafs = cafService.getCafsByLimitId(limit.id!!)
+                inProgressCafs.addAll(
+                    cafs.filter { it.status == CafStatus.IN_PROGRESS }
+                        .map { it.type },
+                )
+            }
+
+            contractorInProgressCafTypes[contractor.id] = inProgressCafs
+        }
+
+        model.addAttribute("contractors", contractors)
+        model.addAttribute("inProgressCafTypes", contractorInProgressCafTypes)
         return "contractor-table :: contractorsList"
     }
 

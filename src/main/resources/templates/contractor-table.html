@@ -8,6 +8,7 @@
                     <th>ID</th>
                     <th>NIP</th>
                     <th>Nazwa</th>
+                    <th>CAF w trakcie</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,6 +19,15 @@
                     <td th:text="${contractor.id}">1</td>
                     <td th:text="${contractor.nip}">1234567890</td>
                     <td th:text="${contractor.name}">Nazwa firmy</td>
+                    <td>
+                        <span th:each="cafType, iterStat : ${inProgressCafTypes.get(contractor.id)}">
+                            <span th:class="${cafType.name() == 'INCREASE' ? 'badge text-bg-primary' : 
+                                        (cafType.name() == 'EXTENSION' ? 'badge text-bg-warning' : 'badge text-bg-danger')}"
+                                  th:text="${cafType.description}">Zwiększenie</span>
+                            <span th:if="${!iterStat.last}">&nbsp;</span>
+                        </span>
+                        <span th:if="${inProgressCafTypes.get(contractor.id).isEmpty()}">-</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
