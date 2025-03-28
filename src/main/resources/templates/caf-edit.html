@@ -39,12 +39,12 @@
                             </tr>
                             <tr>
                                 <th>Ostatni rating:</th>
-                                <td th:if="${latestRating}" th:text="${latestRating.points}">75</td>
+                                <td th:if="${latestRating}" th:text="${latestRating.points} + ' (' + ${#temporals.format(latestRating.date, 'dd.MM.yyyy')} + ')'">75 (04.02.2024)</td>
                                 <td th:unless="${latestRating}">Brak danych</td>
                             </tr>
                             <tr>
                                 <th>Ostatni IZP:</th>
-                                <td th:if="${latestIzp}" th:text="${latestIzp.points}">85</td>
+                                <td th:if="${latestIzp}" th:text="${latestIzp.points} + ' (' + ${#temporals.format(latestIzp.date, 'dd.MM.yyyy')} + ')'">85 (04.02.2024)</td>
                                 <td th:unless="${latestIzp}">Brak danych</td>
                             </tr>
                         </table>
@@ -157,6 +157,7 @@
                                         <th>Symbol</th>
                                         <th>Opis</th>
                                         <th>Status</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -167,6 +168,9 @@
                                         <td>
                                             <span th:if="${req.fulfilled}" class="badge text-bg-success">Spełnione</span>
                                             <span th:unless="${req.fulfilled}" class="badge text-bg-danger">Niespełnione</span>
+                                        </td>
+                                        <td>
+                                            <button th:if="${!req.fulfilled}" class="btn btn-primary btn-sm">Uzupełnij</button>
                                         </td>
                                     </tr>
                                 </tbody>

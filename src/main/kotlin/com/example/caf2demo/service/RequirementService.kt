@@ -1,5 +1,6 @@
 package com.example.caf2demo.service
 
+import com.example.caf2demo.model.Caf
 import com.example.caf2demo.model.Requirement
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
@@ -17,11 +18,15 @@ class RequirementService(
      * Validates a specific requirement.
      *
      * @param requirement the requirement to validate
+     * @param caf the CAF to validate against
      * @return true if the requirement is fulfilled, false otherwise
      */
-    fun validate(requirement: Requirement): Boolean {
+    fun validate(
+        requirement: Requirement,
+        caf: Caf,
+    ): Boolean {
         val validator = applicationContext.getBean(requirement.validatorClass.java)
-        return validator.validate()
+        return validator.validate(caf)
     }
 
     /**

@@ -28,7 +28,7 @@ INSERT INTO izp (points, contractor_id, date)
 VALUES (120, 1, '2024-01-15');
 
 INSERT INTO izp (points, contractor_id, date) 
-VALUES (285, 1, '2024-02-10');
+VALUES (285, 1, '2024-05-10');
 
 INSERT INTO izp (points, contractor_id, date) 
 VALUES (350, 2, '2024-01-20');

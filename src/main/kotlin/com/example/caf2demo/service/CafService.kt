@@ -66,7 +66,7 @@ class CafService(
         // Create and save requirement entities with validation results
         requirements.forEach { requirement ->
             val validator = getValidatorForRequirement(requirement)
-            val isFulfilled = validator.validate()
+            val isFulfilled = validator.validate(caf)
 
             val cafRequirement =
                 CafRequirement(
