@@ -13,6 +13,9 @@
                     <th>Typ</th>
                     <th>Wartość</th>
                     <th>Waluta</th>
+                    <th>Firma</th>
+                    <th>Leasing</th>
+                    <th>Pożyczka</th>
                     <th>Data od</th>
                     <th>Data do</th>
                     <th>Wykorzystano</th>
@@ -26,6 +29,15 @@
                     <td th:text="${limit.type}">RETAIL</td>
                     <td class="text-end" th:text="${#numbers.formatDecimal(limit.value, 1, 'WHITESPACE', 2, 'COMMA')}">10000.00 PLN</td>
                     <td th:text="${limit.currency}">PLN</td>
+                    <td th:text="${limit.company}">LEASING</td>
+                    <td>
+                        <span th:if="${limit.leasing}" class="badge text-bg-success">Tak</span>
+                        <span th:unless="${limit.leasing}" class="badge text-bg-secondary">Nie</span>
+                    </td>
+                    <td>
+                        <span th:if="${limit.loan}" class="badge text-bg-success">Tak</span>
+                        <span th:unless="${limit.loan}" class="badge text-bg-secondary">Nie</span>
+                    </td>
                     <td th:text="${#temporals.format(limit.dateFrom, 'dd.MM.yyyy')}">01.01.2024</td>
                     <td th:text="${#temporals.format(limit.dateTo, 'dd.MM.yyyy')}">31.12.2024</td>
                     <td class="text-end" th:text="${#numbers.formatDecimal(limit.used, 1, 'WHITESPACE', 2, 'COMMA')}">500.00 PLN</td>

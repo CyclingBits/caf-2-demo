@@ -41,6 +41,13 @@ data class Limit(
     val used: BigDecimal = BigDecimal.ZERO,
     @Column(nullable = false)
     val suspended: Boolean = false,
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    val company: Company? = null,
+    @Column(nullable = false)
+    val leasing: Boolean = false,
+    @Column(nullable = false)
+    val loan: Boolean = false,
 ) {
     val status: LimitStatus
         get() {
