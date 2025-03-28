@@ -1,6 +1,4 @@
 package com.example.caf2demo.controller
-
-import com.example.caf2demo.model.LimitStatus
 import com.example.caf2demo.service.ContractorService
 import com.example.caf2demo.service.LimitService
 import org.springframework.stereotype.Controller

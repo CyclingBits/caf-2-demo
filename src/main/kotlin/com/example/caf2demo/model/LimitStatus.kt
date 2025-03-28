@@ -7,4 +7,5 @@ enum class LimitStatus {
     ACTIVE, // Limit is active and can be used
     USED_UP, // Limit has been fully used
     EXPIRED, // Limit has expired (date has passed)
+    SUSPENDED, // Limit is suspended
 }

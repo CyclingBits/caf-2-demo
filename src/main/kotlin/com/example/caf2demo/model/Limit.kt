@@ -39,12 +39,14 @@ data class Limit(
     val dateTo: LocalDate,
     @Column(nullable = false, precision = 19, scale = 2)
     val used: BigDecimal = BigDecimal.ZERO,
+    @Column(nullable = false)
+    val suspended: Boolean = false,
 ) {
     val status: LimitStatus
         get() {
-            val today = LocalDate.now()
             return when {
-                today.isAfter(dateTo) -> LimitStatus.EXPIRED
+                suspended -> LimitStatus.SUSPENDED
+                LocalDate.now().isAfter(dateTo) -> LimitStatus.EXPIRED
                 used >= value -> LimitStatus.USED_UP
                 else -> LimitStatus.ACTIVE
             }
