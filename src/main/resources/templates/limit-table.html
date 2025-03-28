@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="limitsList">
+        <h4>Limity kontrahenta</h4>
+        <div th:if="${#lists.isEmpty(limits)}" class="alert alert-info">
+            Brak limitów dla tego kontrahenta.
+        </div>
+        <table class="table table-striped" th:unless="${#lists.isEmpty(limits)}">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Typ</th>
+                    <th>Wartość</th>
+                    <th>Waluta</th>
+                    <th>Data od</th>
+                    <th>Data do</th>
+                    <th>Wykorzystano</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="limit : ${limits}">
+                    <td th:text="${limit.id}">1</td>
+                    <td th:text="${limit.type}">RETAIL</td>
+                    <td th:text="${#numbers.formatDecimal(limit.value, 1, 2)}">10000.00</td>
+                    <td th:text="${limit.currency}">PLN</td>
+                    <td th:text="${#temporals.format(limit.dateFrom, 'dd.MM.yyyy')}">01.01.2024</td>
+                    <td th:text="${#temporals.format(limit.dateTo, 'dd.MM.yyyy')}">31.12.2024</td>
+                    <td th:text="${#numbers.formatDecimal(limit.used, 1, 2)}">500.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

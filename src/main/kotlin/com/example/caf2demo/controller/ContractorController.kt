@@ -27,8 +27,15 @@ class ContractorController(private val contractorService: ContractorService) {
         val contractor = contractorService.getContractorById(id)
         if (contractor != null) {
             model.addAttribute("contractor", contractor)
+            model.addAttribute("limits", contractorService.getLimitsByContractorId(id))
             return "contractor-details"
         }
         return "redirect:/"
+    }
+    
+    @GetMapping("/contractor/{id}/limits")
+    fun getContractorLimits(@PathVariable id: Long, model: Model): String {
+        model.addAttribute("limits", contractorService.getLimitsByContractorId(id))
+        return "limit-table :: limitsList"
     }
 }

@@ -34,6 +34,11 @@
                             </tr>
                         </table>
                     </div>
+                    
+                    <div class="col-md-12 mt-4" 
+                         th:hx-get="@{/contractor/{id}/limits(id=${contractor.id})}"
+                         hx-trigger="load"
+                         hx-swap="outerHTML"></div>
                 </div>
                 <div class="alert alert-danger" th:unless="${contractor}">
                     Nie znaleziono kontrahenta.
