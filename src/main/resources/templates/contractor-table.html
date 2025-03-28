@@ -8,6 +8,7 @@
                     <th>ID</th>
                     <th>NIP</th>
                     <th>Nazwa</th>
+                    <th>Wykorzystanie</th>
                     <th>CAF w trakcie</th>
                 </tr>
             </thead>
@@ -19,6 +20,8 @@
                     <td th:text="${contractor.id}">1</td>
                     <td th:text="${contractor.nip}">1234567890</td>
                     <td th:text="${contractor.name}">Nazwa firmy</td>
+                    <td th:class="${maxUtilization.get(contractor.id) > 0 && maxUtilization.get(contractor.id) >= 90 ? 'text-danger fw-bold' : ''}"
+                        th:text="${maxUtilization.get(contractor.id) > 0 ? maxUtilization.get(contractor.id) + '%' : '-'}">25%</td>
                     <td>
                         <span th:each="cafType, iterStat : ${inProgressCafTypes.get(contractor.id)}">
                             <span th:class="${cafType.name() == 'INCREASE' ? 'badge text-bg-primary' : 

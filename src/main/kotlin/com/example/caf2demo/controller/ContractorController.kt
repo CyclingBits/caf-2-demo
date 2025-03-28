@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import java.math.BigDecimal
 
 @Controller
 class ContractorController(
@@ -19,14 +20,24 @@ class ContractorController(
     fun home(model: Model): String {
         val contractors = contractorService.getAllContractors()
 
-        // For each contractor, get limits and then CAFs in IN_PROGRESS status
+        // For each contractor, get limits and then CAFs in IN_PROGRESS status and max utilization
         val contractorInProgressCafTypes = mutableMapOf<Long, List<CafType>>()
+        val contractorMaxUtilization = mutableMapOf<Long, Int>()
 
         contractors.forEach { contractor ->
             val limits = limitService.getLimitsByContractorId(contractor.id)
             val inProgressCafs = mutableListOf<CafType>()
 
+            // Calculate max utilization percentage for this contractor
+            var maxUtilizationPercent = 0
             limits.forEach { limit ->
+                if (limit.value > BigDecimal.ZERO) {
+                    val utilizationPercent = (limit.used * BigDecimal(100) / limit.value).toInt()
+                    if (utilizationPercent > maxUtilizationPercent) {
+                        maxUtilizationPercent = utilizationPercent
+                    }
+                }
+
                 val cafs = cafService.getCafsByLimitId(limit.id!!)
                 inProgressCafs.addAll(
                     cafs.filter { it.status == CafStatus.IN_PROGRESS }
@@ -35,10 +46,12 @@ class ContractorController(
             }
 
             contractorInProgressCafTypes[contractor.id] = inProgressCafs
+            contractorMaxUtilization[contractor.id] = maxUtilizationPercent
         }
 
         model.addAttribute("contractors", contractors)
         model.addAttribute("inProgressCafTypes", contractorInProgressCafTypes)
+        model.addAttribute("maxUtilization", contractorMaxUtilization)
         return "index"
     }
 
@@ -46,14 +59,24 @@ class ContractorController(
     fun getContractors(model: Model): String {
         val contractors = contractorService.getAllContractors()
 
-        // For each contractor, get limits and then CAFs in IN_PROGRESS status
+        // For each contractor, get limits and then CAFs in IN_PROGRESS status and max utilization
         val contractorInProgressCafTypes = mutableMapOf<Long, List<CafType>>()
+        val contractorMaxUtilization = mutableMapOf<Long, Int>()
 
         contractors.forEach { contractor ->
             val limits = limitService.getLimitsByContractorId(contractor.id)
             val inProgressCafs = mutableListOf<CafType>()
 
+            // Calculate max utilization percentage for this contractor
+            var maxUtilizationPercent = 0
             limits.forEach { limit ->
+                if (limit.value > BigDecimal.ZERO) {
+                    val utilizationPercent = (limit.used * BigDecimal(100) / limit.value).toInt()
+                    if (utilizationPercent > maxUtilizationPercent) {
+                        maxUtilizationPercent = utilizationPercent
+                    }
+                }
+
                 val cafs = cafService.getCafsByLimitId(limit.id!!)
                 inProgressCafs.addAll(
                     cafs.filter { it.status == CafStatus.IN_PROGRESS }
@@ -62,10 +85,12 @@ class ContractorController(
             }
 
             contractorInProgressCafTypes[contractor.id] = inProgressCafs
+            contractorMaxUtilization[contractor.id] = maxUtilizationPercent
         }
 
         model.addAttribute("contractors", contractors)
         model.addAttribute("inProgressCafTypes", contractorInProgressCafTypes)
+        model.addAttribute("maxUtilization", contractorMaxUtilization)
         return "contractor-table :: contractorsList"
     }
 

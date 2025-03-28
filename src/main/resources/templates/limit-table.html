@@ -56,7 +56,7 @@
                         </td>
                         <td th:text="${#temporals.format(limit.dateFrom, 'dd.MM.yyyy')}">01.01.2024</td>
                         <td th:text="${#temporals.format(limit.dateTo, 'dd.MM.yyyy')}">31.12.2024</td>
-                        <td class="text-end" th:text="${#numbers.formatDecimal(limit.used, 1, 'WHITESPACE', 2, 'COMMA')}">500.00 PLN</td>
+                        <td class="text-end" th:text="${#numbers.formatDecimal(limit.used, 1, 'WHITESPACE', 2, 'COMMA')} + ' (' + ${#numbers.formatInteger(limit.used * 100 / limit.value, 0, 'WHITESPACE')} + '%)'">500.00 PLN (25%)</td>
                         <td>
                             <span th:if="${limit.suspended}" class="badge text-bg-danger">Zawieszony</span>
                         </td>
