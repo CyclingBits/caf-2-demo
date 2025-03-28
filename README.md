@@ -18,9 +18,6 @@ caf-2-demo/
 │   │   │               ├── service/
 │   │   │               └── Caf2DemoApplication.kt
 │   │   └── resources/
-│   │       ├── static/
-│   │       │   └── js/
-│   │       │       └── htmx.min.js
 │   │       ├── templates/
 │   │       │   └── layout.html
 │   │       └── application.properties
