@@ -57,7 +57,11 @@ class CafController(private val cafService: CafService, private val limitService
     ): String {
         val caf = cafService.getCafById(id)
         if (caf != null) {
+            // Get the requirements list for this CAF
+            val requirements = cafService.getRequirementsForCaf(caf.id!!)
+
             model.addAttribute("caf", caf)
+            model.addAttribute("requirements", requirements)
             return "caf-details"
         }
         return "redirect:/"

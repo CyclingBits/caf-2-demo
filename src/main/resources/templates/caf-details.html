@@ -69,6 +69,34 @@
                         </table>
                     </div>
 
+                    
+                    <!-- Requirements Section -->
+                    <div class="col-md-12 mt-4">
+                        <h4>Wymagania CAF</h4>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Symbol</th>
+                                        <th>Opis</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="req : ${requirements}">
+                                        <td th:text="${req.id}">1</td>
+                                        <td th:text="${req.requirement.symbol}">IZP</td>
+                                        <td th:text="${req.requirement.description}">Aktualny IZP</td>
+                                        <td>
+                                            <span th:if="${req.fulfilled}" class="badge text-bg-success">Spełnione</span>
+                                            <span th:unless="${req.fulfilled}" class="badge text-bg-danger">Niespełnione</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div class="alert alert-danger" th:unless="${caf}">
                     Nie znaleziono CAF.
