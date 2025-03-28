@@ -9,17 +9,16 @@ import org.springframework.stereotype.Service
 @Service
 class ContractorService(
     private val contractorRepository: ContractorRepository,
-    private val limitRepository: LimitRepository
+    private val limitRepository: LimitRepository,
 ) {
-    
     fun getAllContractors(): List<Contractor> {
         return contractorRepository.findAll()
     }
-    
+
     fun getContractorById(id: Long): Contractor? {
         return contractorRepository.findById(id).orElse(null)
     }
-    
+
     fun getLimitsByContractorId(contractorId: Long): List<Limit> {
         return limitRepository.findAllByContractorId(contractorId)
     }

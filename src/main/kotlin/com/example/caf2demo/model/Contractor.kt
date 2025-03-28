@@ -15,8 +15,6 @@ data class Contractor(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
-    
     val name: String,
-    
-    val nip: String
+    val nip: String,
 )

@@ -107,6 +107,20 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>com.github.gantsign.maven</groupId>
+                <artifactId>ktlint-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>format-and-check</id>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

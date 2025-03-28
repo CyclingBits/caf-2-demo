@@ -5,5 +5,5 @@ package com.example.caf2demo.model
  */
 enum class Currency {
     PLN,
-    EUR
+    EUR,
 }
