@@ -7,6 +7,7 @@
 - Run single test: `mvn test -Dtest=TestClassName`
 - Lint: `mvn ktlint:check`
 - Format code: `mvn ktlint:format`
+- Access H2 console: http://localhost:8080/h2-console
 
 ## Code Style Guidelines
 - **Formatting**: Follow Kotlin style guide with 4-space indentation
@@ -19,5 +20,13 @@
 - **Error Handling**: Use Result type or exceptions with meaningful messages
 - **Documentation**: KDoc comments for all public functions and classes
 - **Testing**: Write unit tests for all business logic
+
+## Database Guidelines
+- **H2 Database**: In-memory database for development
+  - URL: jdbc:h2:mem:caf2db
+  - Username: sa
+  - Password: password
+- **JPA Entities**: Follow standard JPA practices
+- **Data Initialization**: Use data.sql for sample data
 
 Run all tests before committing. Always verify your changes with the lint checker.
