@@ -4,12 +4,6 @@ INSERT INTO contractor (name, nip) VALUES ('Przedsiębiorstwo XYZ', '9876543210'
 INSERT INTO contractor (name, nip) VALUES ('Spółka Handlowa', '5678901234');
 INSERT INTO contractor (name, nip) VALUES ('Zakład Usługowy', '2345678901');
 
--- Initialize CAF records
-INSERT INTO caf (limit_id, type, status) VALUES (1, 'INCREASE', 'COMPLETED');
-INSERT INTO caf (limit_id, type, status) VALUES (1, 'EXTENSION', 'IN_PROGRESS');
-INSERT INTO caf (limit_id, type, status) VALUES (2, 'SUSPENSION', 'COMPLETED');
-INSERT INTO caf (limit_id, type, status) VALUES (3, 'INCREASE', 'IN_PROGRESS');
-
 -- Initialize limits
 INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan) 
 VALUES (1, 'RETAIL', 100000.00, 'PLN', '2024-01-01', '2025-12-31', 25000.00, false, 'LEASING', true, false);
@@ -22,6 +16,12 @@ VALUES (2, 'RETAIL', 75000.00, 'PLN', '2024-01-01', '2024-12-31', 15000.00, fals
 
 INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan) 
 VALUES (3, 'RETAIL', 200000.00, 'PLN', '2024-01-01', '2024-12-31', 50000.00, false, 'ATHLON', false, false);
+
+-- Initialize CAF records
+INSERT INTO caf (limit_id, type, status) VALUES (1, 'INCREASE', 'COMPLETED');
+INSERT INTO caf (limit_id, type, status) VALUES (1, 'EXTENSION', 'IN_PROGRESS');
+INSERT INTO caf (limit_id, type, status) VALUES (2, 'SUSPENSION', 'COMPLETED');
+INSERT INTO caf (limit_id, type, status) VALUES (3, 'INCREASE', 'IN_PROGRESS');
 
 -- Initialize IZP records
 INSERT INTO izp (points, contractor_id, date) 

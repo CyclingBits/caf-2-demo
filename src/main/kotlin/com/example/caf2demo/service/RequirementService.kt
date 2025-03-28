@@ -1,7 +1,6 @@
 package com.example.caf2demo.service
 
 import com.example.caf2demo.model.Requirement
-import com.example.caf2demo.service.validator.RequirementValidator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
 import org.springframework.stereotype.Service
@@ -10,8 +9,9 @@ import org.springframework.stereotype.Service
  * Service for handling requirements validation.
  */
 @Service
-class RequirementService @Autowired constructor(
-    private val applicationContext: ApplicationContext
+class RequirementService(
+    @Autowired
+    private val applicationContext: ApplicationContext,
 ) {
     /**
      * Validates a specific requirement.
