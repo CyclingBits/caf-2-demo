@@ -57,9 +57,15 @@
                     <tr th:id="'limit-actions-' + ${limit.id}" style="display: none;">
                         <td colspan="13" class="bg-light">
                             <div class="d-flex gap-2 justify-content-center py-2">
-                                <button class="btn btn-primary btn-sm">Zwiększ</button>
-                                <button class="btn btn-warning btn-sm">Przedłóż</button>
-                                <button class="btn btn-danger btn-sm">Zawieś</button>
+                                <form th:action="@{/limit/{limitId}/caf/increase(limitId=${limit.id})}" method="post">
+                                    <button type="submit" class="btn btn-primary btn-sm">Zwiększ</button>
+                                </form>
+                                <form th:action="@{/limit/{limitId}/caf/extension(limitId=${limit.id})}" method="post">
+                                    <button type="submit" class="btn btn-warning btn-sm">Przedłóż</button>
+                                </form>
+                                <form th:action="@{/limit/{limitId}/caf/suspension(limitId=${limit.id})}" method="post">
+                                    <button type="submit" class="btn btn-danger btn-sm">Zawieś</button>
+                                </form>
                             </div>
                         </td>
                     </tr>
