@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="ratingList">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Punkty</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="rating : ${ratingList}">
+                    <td th:text="${rating.id}">1</td>
+                    <td th:text="${rating.points}">85</td>
+                    <td th:text="${#temporals.format(rating.date, 'yyyy-MM-dd')}">2024-01-01</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -39,7 +39,16 @@
                          th:hx-get="@{/contractor/{id}/limits(id=${contractor.id})}"
                          hx-trigger="load"
                          hx-swap="outerHTML"></div>
-                    
+
+                    <div class="col-md-12 mt-4">
+                        <h4>Rating</h4>
+                        <div th:hx-get="@{/contractor/{id}/ratings(id=${contractor.id})}"
+                             hx-trigger="load"
+                             hx-swap="innerHTML">
+                            <p>Ładowanie ocen...</p>
+                        </div>
+                    </div>
+
                     <div class="col-md-12 mt-4">
                         <h4>IZP</h4>
                         <div th:hx-get="@{/contractor/{id}/izp(id=${contractor.id})}"
@@ -48,6 +57,7 @@
                             <p>Ładowanie danych IZP...</p>
                         </div>
                     </div>
+
                 </div>
                 <div class="alert alert-danger" th:unless="${contractor}">
                     Nie znaleziono kontrahenta.

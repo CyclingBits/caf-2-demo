@@ -22,10 +22,23 @@ INSERT INTO izp (points, contractor_id, date)
 VALUES (120, 1, '2024-01-15');
 
 INSERT INTO izp (points, contractor_id, date) 
-VALUES (85, 1, '2024-02-10');
+VALUES (285, 1, '2024-02-10');
 
 INSERT INTO izp (points, contractor_id, date) 
-VALUES (150, 2, '2024-01-20');
+VALUES (350, 2, '2024-01-20');
 
 INSERT INTO izp (points, contractor_id, date) 
 VALUES (200, 3, '2024-03-05');
+
+-- Initialize Rating records
+INSERT INTO rating (contractor_id, points, date) 
+VALUES (1, 5, '2024-01-20');
+
+INSERT INTO rating (contractor_id, points, date) 
+VALUES (1, 8, '2024-02-15');
+
+INSERT INTO rating (contractor_id, points, date) 
+VALUES (2, 7, '2024-01-25');
+
+INSERT INTO rating (contractor_id, points, date) 
+VALUES (3, 9, '2024-03-10');
