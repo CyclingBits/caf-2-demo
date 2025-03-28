@@ -1,0 +1,16 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NIP</th>
+            <th>Nazwa</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="contractor : ${contractors}">
+            <td th:text="${contractor.id}">1</td>
+            <td th:text="${contractor.nip}">1234567890</td>
+            <td th:text="${contractor.name}">Nazwa firmy</td>
+        </tr>
+    </tbody>
+</table>
