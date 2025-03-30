@@ -21,6 +21,33 @@
 - **Documentation**: KDoc comments for all public functions and classes
 - **Testing**: Write unit tests for all business logic
 
+## Entity Model
+
+- **Contractor**: Base entity representing a business partner
+- **Company**: Company information within a contractor
+- **Limit**: Financial limit with type, amount, currency, and validity
+  - **LimitType**: Type of financial limit (GUARANTEE, LOAN, etc.)
+  - **LimitStatus**: Status of a limit (ACTIVE, EXPIRED, etc.)
+- **CAF**: Contract Amendment Form
+  - **CafType**: Type of CAF (INCREASE, EXTENSION, SUSPENSION)
+  - **CafStatus**: Status of a CAF (DRAFT, ANALYSIS, APPROVAL, etc.)
+- **CafRequirement**: Requirements attached to a specific CAF
+  - **Requirement**: Base requirement definition
+  - **CafTypeRequirement**: Requirements for a specific CAF type
+- **Izp**: Investment plans related to contractors
+- **Rating**: Credit ratings for contractors
+- **Currency**: Supported currencies (PLN, EUR)
+
+## Validation Components
+
+Multiple validators ensure business rules are followed:
+- **AnalysisValidator**: Validates CAFs in analysis phase
+- **ApprovalValidator**: Validates CAFs in approval phase
+- **CauseValidator**: Validates cause/reason documentation
+- **IzpValidator**: Validates investment plans
+- **RatingValidator**: Validates contractor ratings
+- **RequirementValidator**: Validates CAF requirements
+
 ## Database Guidelines
 - **H2 Database**: In-memory database for development
   - URL: jdbc:h2:mem:caf2db
