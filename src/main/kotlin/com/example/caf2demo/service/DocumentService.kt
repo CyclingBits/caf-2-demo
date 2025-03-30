@@ -17,4 +17,8 @@ class DocumentService(private val documentRepository: DocumentRepository) {
     fun getDocumentById(id: Long): Document? {
         return documentRepository.findById(id).orElse(null)
     }
+
+    fun saveDocument(document: Document): Document {
+        return documentRepository.save(document)
+    }
 }

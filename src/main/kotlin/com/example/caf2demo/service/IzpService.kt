@@ -15,4 +15,8 @@ class IzpService(
     fun getAllIzp(): List<Izp> {
         return izpRepository.findAll()
     }
+
+    fun saveIzp(izp: Izp): Izp {
+        return izpRepository.save(izp)
+    }
 }
