@@ -66,6 +66,15 @@
                         </div>
                     </div>
 
+                    <div class="col-md-12 mt-4">
+                        <h4>Dokumenty</h4>
+                        <div th:hx-get="@{/contractor/{id}/documents(id=${contractor.id})}"
+                             hx-trigger="load"
+                             hx-swap="innerHTML">
+                            <p>Ładowanie dokumentów...</p>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="alert alert-danger" th:unless="${contractor}">
                     Nie znaleziono kontrahenta.

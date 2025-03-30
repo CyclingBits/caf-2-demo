@@ -22,4 +22,5 @@ enum class Requirement(
     CAUSE(3, "Cause", "Powód zmian", CauseValidator::class),
     ANALYSIS(4, "Analysis", "Analiza I analityka", AnalysisValidator::class),
     APPROVAL(5, "Approval", "Akceptacja II analityka", ApprovalValidator::class),
+    DOC_FIN(6, "DocFin", "Aktualny dokument finansowy", CauseValidator::class),
 }

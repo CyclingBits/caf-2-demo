@@ -59,3 +59,16 @@ VALUES (2, 7, '2024-01-25');
 
 INSERT INTO rating (contractor_id, points, date) 
 VALUES (3, 9, '2024-03-10');
+
+-- Initialize Document records (empty files for sample data)
+INSERT INTO document (contractor_id, date, type, file) 
+VALUES (1, '2024-01-20', 'FINANCIAL', RAWTOHEX('Sample document content'));
+
+INSERT INTO document (contractor_id, date, type, file) 
+VALUES (1, '2024-01-25', 'REGISTRY', RAWTOHEX('Registry document content'));
+
+INSERT INTO document (contractor_id, date, type, file) 
+VALUES (2, '2024-02-15', 'BOOKKEEPING', RAWTOHEX('Another sample document content'));
+
+INSERT INTO document (contractor_id, date, type, file) 
+VALUES (3, '2024-03-10', 'AGREEMENT', RAWTOHEX('Agreement document content'));

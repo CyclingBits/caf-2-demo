@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="documentList">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Typ</th>
+                        <th>Data dodania</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${documentList.empty}">
+                        <td colspan="4" class="text-center">Brak dokumentów</td>
+                    </tr>
+                    <tr th:each="document : ${documentList}">
+                        <td th:text="${document.id}">1</td>
+                        <td th:text="${document.type.displayName}">Dokumenty finansowe</td>
+                        <td th:text="${#temporals.format(document.date, 'dd-MM-yyyy')}">01-01-2023</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" th:href="@{/documents/{id}(id=${document.id})}">Pobierz</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
