@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository
  * Repository for Contractor entity
  */
 @Repository
-interface ContractorRepository : JpaRepository<Contractor, Long>
+interface ContractorRepository : JpaRepository<Contractor, Long> {
+    fun findByNipContainingOrNameContainingIgnoreCase(nip: String, name: String): List<Contractor>
+}

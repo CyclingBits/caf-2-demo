@@ -2,6 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
     <div th:fragment="contractorsList">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <form id="searchForm" hx-get="/contractors" hx-target="#contractorsContainer" hx-trigger="submit" hx-swap="innerHTML">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Wyszukaj po NIP lub nazwie..." th:value="${param.search}">
+                        <button class="btn btn-outline-secondary" type="submit">Szukaj</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr>
