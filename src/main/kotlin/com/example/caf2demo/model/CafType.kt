@@ -7,4 +7,5 @@ enum class CafType(val description: String) {
     INCREASE("Zwiększenie"),
     EXTENSION("Przedłużenie"),
     SUSPENSION("Zawieszenie"),
+    RESUME("Wznowienie"),
 }
