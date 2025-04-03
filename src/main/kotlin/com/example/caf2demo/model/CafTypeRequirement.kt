@@ -26,7 +26,14 @@ enum class CafTypeRequirement(
     SUSPENSION_RATING(CafType.SUSPENSION, Requirement.RATING),
     SUSPENSION_CAUSE(CafType.SUSPENSION, Requirement.CAUSE),
     SUSPENSION_ANALYSIS(CafType.SUSPENSION, Requirement.ANALYSIS),
-    SUSPENSION_APPROVAL(CafType.SUSPENSION, Requirement.APPROVAL), ;
+    SUSPENSION_APPROVAL(CafType.SUSPENSION, Requirement.APPROVAL),
+
+    // RESUME mappings
+    RESUME_IZP(CafType.RESUME, Requirement.IZP),
+    RESUME_RATING(CafType.RESUME, Requirement.RATING),
+    RESUME_CAUSE(CafType.RESUME, Requirement.CAUSE),
+    RESUME_ANALYSIS(CafType.RESUME, Requirement.ANALYSIS),
+    RESUME_APPROVAL(CafType.RESUME, Requirement.APPROVAL), ;
 
     companion object {
         /**
