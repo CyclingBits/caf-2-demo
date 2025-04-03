@@ -67,7 +67,10 @@ class ContractorController(
     }
 
     @GetMapping("/contractors")
-    fun getContractors(model: Model, @org.springframework.web.bind.annotation.RequestParam(required = false) search: String?): String {
+    fun getContractors(
+        model: Model,
+        @org.springframework.web.bind.annotation.RequestParam(required = false) search: String?,
+    ): String {
         val contractors = contractorService.searchContractors(search)
 
         // For each contractor, get limits and then CAFs in IN_PROGRESS status and max utilization

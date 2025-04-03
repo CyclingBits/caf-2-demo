@@ -113,4 +113,13 @@ class CafController(
         }
         return "redirect:/"
     }
+
+    @PostMapping("/caf/{id}/update-limit")
+    fun updateCafLimit(
+        @PathVariable id: Long,
+        @org.springframework.web.bind.annotation.RequestParam newLimitValue: java.math.BigDecimal,
+    ): String {
+        cafService.updateCafNewLimitValue(id, newLimitValue)
+        return "redirect:/caf/$id"
+    }
 }

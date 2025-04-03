@@ -10,6 +10,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
+import java.math.BigDecimal
 
 /**
  * Entity representing a CAF operation.
@@ -29,4 +30,6 @@ data class Caf(
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     val status: CafStatus,
+    @Column(name = "new_limit_value")
+    val newLimitValue: BigDecimal? = null,
 )

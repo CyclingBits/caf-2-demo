@@ -11,7 +11,7 @@ class ContractorService(
     fun getAllContractors(): List<Contractor> {
         return contractorRepository.findAll()
     }
-    
+
     fun searchContractors(searchTerm: String?): List<Contractor> {
         if (searchTerm.isNullOrBlank()) {
             return contractorRepository.findAll()

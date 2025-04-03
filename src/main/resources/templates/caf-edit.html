@@ -142,6 +142,16 @@
                                     <span th:if="${caf.status.name() == 'COMPLETED'}" class="badge text-bg-success">Zakończony</span>
                                 </td>
                             </tr>
+                            <tr th:if="${caf.type.name() == 'INCREASE'}">
+                                <th>Zmiana limitu na:</th>
+                                <td>
+                                    <form th:action="@{/caf/{id}/update-limit(id=${caf.id})}" method="post" class="d-flex">
+                                        <input type="number" name="newLimitValue" class="form-control form-control-sm me-2" 
+                                               th:value="${caf.newLimitValue}" step="0.01" min="0" placeholder="Nowa wartość">
+                                        <button type="submit" class="btn btn-primary btn-sm">Zapisz</button>
+                                    </form>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     

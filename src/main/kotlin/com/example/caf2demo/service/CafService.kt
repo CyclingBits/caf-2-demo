@@ -55,6 +55,16 @@ class CafService(
         return savedCaf
     }
 
+    @Transactional
+    fun updateCafNewLimitValue(
+        id: Long,
+        newLimitValue: java.math.BigDecimal,
+    ): Caf? {
+        val caf = cafRepository.findById(id).orElse(null) ?: return null
+        val updatedCaf = caf.copy(newLimitValue = newLimitValue)
+        return cafRepository.save(updatedCaf)
+    }
+
     /**
      * Generates requirements for a CAF based on its type and validates them.
      */
