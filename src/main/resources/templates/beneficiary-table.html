@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="beneficiaryList">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nazwa</th>
+                    <th>NIP</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="beneficiary : ${beneficiaryList}">
+                    <td th:text="${beneficiary.id}">1</td>
+                    <td th:text="${beneficiary.name}">Nazwa beneficjenta</td>
+                    <td th:text="${beneficiary.nip}">1234567890</td>
+                    <td th:text="${#temporals.format(beneficiary.date, 'yyyy-MM-dd')}">2024-01-01</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
