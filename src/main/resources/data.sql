@@ -11,6 +11,10 @@ VALUES (1, 'RETAIL', 100000.00, 'PLN', '2024-01-01', '2025-12-31', 95000.00, fal
 INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan, aml_relevant) 
 VALUES (1, 'RETAIL', 50000.00, 'EUR', '2024-01-01', '2025-12-31', 5000.00, true, 'ATHLON', false, true, false);
 
+INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan, aml_relevant)
+VALUES (1, 'RETAIL', 20000.00, 'PLN', '2024-01-01', '2025-12-31', 5000.00, false, 'LEASING', false, true, false);
+
+
 INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan, aml_relevant) 
 VALUES (2, 'RETAIL', 75000.00, 'PLN', '2024-01-01', '2025-12-31', 15000.00, false, 'LEASING', true, true, true);
 
@@ -19,7 +23,7 @@ VALUES (3, 'RETAIL', 200000.00, 'PLN', '2024-01-01', '2025-04-10', 50000.00, fal
 
 -- Initialize CAF records
 INSERT INTO caf (limit_id, type, status) VALUES (1, 'INCREASE', 'IN_PROGRESS');
-INSERT INTO caf (limit_id, type, status) VALUES (3, 'SUSPENSION', 'IN_PROGRESS');
+INSERT INTO caf (limit_id, type, status) VALUES (4, 'SUSPENSION', 'IN_PROGRESS');
 
 -- Initialize CAF requirements
 INSERT INTO caf_requirement (caf_id, requirement, fulfilled) VALUES (1, 'IZP', true);
