@@ -49,10 +49,7 @@
                          hx-swap="outerHTML"></div>
 
                     <div class="col-md-12 mt-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h4>Rating</h4>
-                            <a th:href="@{/contractor/{id}/rating/add(id=${contractor.id})}" class="btn btn-success btn-sm">Dodaj</a>
-                        </div>
+                        <h4>Rating</h4>
                         <div th:hx-get="@{/contractor/{id}/ratings(id=${contractor.id})}"
                              hx-trigger="load"
                              hx-swap="innerHTML">
@@ -61,10 +58,7 @@
                     </div>
 
                     <div class="col-md-12 mt-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h4>IZP</h4>
-                            <a th:href="@{/contractor/{id}/izp/add(id=${contractor.id})}" class="btn btn-success btn-sm">Dodaj</a>
-                        </div>
+                        <h4>IZP</h4>
                         <div th:hx-get="@{/contractor/{id}/izp(id=${contractor.id})}"
                              hx-trigger="load"
                              hx-swap="innerHTML">
@@ -73,10 +67,7 @@
                     </div>
 
                     <div class="col-md-12 mt-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h4>Dokumenty</h4>
-                            <a th:href="@{/contractor/{id}/document/add(id=${contractor.id})}" class="btn btn-success btn-sm">Dodaj</a>
-                        </div>
+                        <h4>Dokumenty</h4>
                         <div th:hx-get="@{/contractor/{id}/documents(id=${contractor.id})}"
                              hx-trigger="load"
                              hx-swap="innerHTML">

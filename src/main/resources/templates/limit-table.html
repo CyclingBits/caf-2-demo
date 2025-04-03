@@ -70,11 +70,9 @@
                         <td>
                             <span th:if="${activeCafs[limit.id] != null}" 
                                   th:class="${'badge ' + (activeCafs[limit.id].type.name() == 'INCREASE' ? 'text-bg-primary' : 
-                                               (activeCafs[limit.id].type.name() == 'EXTENSION' ? 'text-bg-warning' : 
-                                               (activeCafs[limit.id].type.name() == 'SUSPENSION' ? 'text-bg-danger' : 'text-bg-success')))}" 
+                                               (activeCafs[limit.id].type.name() == 'EXTENSION' ? 'text-bg-warning' : 'text-bg-danger'))}" 
                                   th:text="${activeCafs[limit.id].type.name() == 'INCREASE' ? 'Zwiększenie' : 
-                                             (activeCafs[limit.id].type.name() == 'EXTENSION' ? 'Przedłużenie' : 
-                                             (activeCafs[limit.id].type.name() == 'SUSPENSION' ? 'Zawieszenie' : 'Wznowienie'))}">CAF</span>
+                                             (activeCafs[limit.id].type.name() == 'EXTENSION' ? 'Przedłużenie' : 'Zawieszenie')}">CAF</span>
                         </td>
                     </tr>
                     <tr th:id="'limit-actions-' + ${limit.id}" style="display: none;">
@@ -88,9 +86,6 @@
                                 </form>
                                 <form th:action="@{/limit/{limitId}/caf/suspension(limitId=${limit.id})}" method="post">
                                     <button type="submit" class="btn btn-danger btn-sm">Zawieś</button>
-                                </form>
-                                <form th:action="@{/limit/{limitId}/caf/resume(limitId=${limit.id})}" method="post">
-                                    <button type="submit" class="btn btn-success btn-sm">Odwieś</button>
                                 </form>
                             </div>
                         </td>

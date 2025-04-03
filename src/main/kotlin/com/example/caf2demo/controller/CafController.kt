@@ -57,19 +57,6 @@ class CafController(
         }
     }
 
-    @PostMapping("/limit/{limitId}/caf/resume")
-    fun createResumeCaf(
-        @PathVariable limitId: Long,
-        model: Model,
-    ): String {
-        val caf = cafService.createCaf(limitId, CafType.RESUME)
-        return if (caf != null) {
-            "redirect:/caf/" + caf.id
-        } else {
-            "redirect:/"
-        }
-    }
-
     @GetMapping("/caf/{id}")
     fun getCafDetails(
         @PathVariable id: Long,
