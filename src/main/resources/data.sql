@@ -60,19 +60,6 @@ VALUES (2, 7, '2024-01-25');
 INSERT INTO rating (contractor_id, points, date) 
 VALUES (3, 9, '2024-03-10');
 
--- Initialize Beneficiary records
-INSERT INTO beneficiary (contractor_id, name, nip, date) 
-VALUES (1, 'Firma Córka 1', '1111111111', '2024-01-15');
-
-INSERT INTO beneficiary (contractor_id, name, nip, date) 
-VALUES (1, 'Firma Córka 2', '2222222222', '2024-02-10');
-
-INSERT INTO beneficiary (contractor_id, name, nip, date) 
-VALUES (2, 'Spółka Zależna', '3333333333', '2024-01-25');
-
-INSERT INTO beneficiary (contractor_id, name, nip, date) 
-VALUES (3, 'Podmiot Powiązany', '4444444444', '2024-03-05');
-
 -- Initialize Document records (empty files for sample data)
 INSERT INTO document (contractor_id, date, type, file) 
 VALUES (1, '2024-01-20', 'FINANCIAL', RAWTOHEX('Sample document content'));

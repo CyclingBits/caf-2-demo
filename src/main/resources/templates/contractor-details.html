@@ -50,18 +50,6 @@
 
                     <div class="col-md-12 mt-4">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h4>Beneficjenci</h4>
-                            <a th:href="@{/contractor/{id}/beneficiary/add(id=${contractor.id})}" class="btn btn-success btn-sm">Dodaj</a>
-                        </div>
-                        <div th:hx-get="@{/contractor/{id}/beneficiaries(id=${contractor.id})}"
-                             hx-trigger="load"
-                             hx-swap="innerHTML">
-                            <p>Ładowanie beneficjentów...</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 mt-4">
-                        <div class="d-flex justify-content-between align-items-center">
                             <h4>Rating</h4>
                             <a th:href="@{/contractor/{id}/rating/add(id=${contractor.id})}" class="btn btn-success btn-sm">Dodaj</a>
                         </div>
