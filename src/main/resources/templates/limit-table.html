@@ -11,6 +11,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Typ</th>
+                    <th>AML</th>
                     <th>Wartość</th>
                     <th>Waluta</th>
                     <th>Firma</th>
@@ -43,6 +44,10 @@
                         </th:block>                        
                         <td th:text="${limit.id}">1</td>
                         <td th:text="${limit.type}">RETAIL</td>
+                        <td>
+                            <span th:if="${limit.amlRelevant}" class="badge text-bg-warning">Tak</span>
+                            <span th:unless="${limit.amlRelevant}" class="badge text-bg-secondary">Nie</span>
+                        </td>
                         <td class="text-end" th:text="${#numbers.formatDecimal(limit.value, 1, 'WHITESPACE', 2, 'COMMA')}">10000.00 PLN</td>
                         <td th:text="${limit.currency}">PLN</td>
                         <td th:text="${limit.company}">LEASING</td>

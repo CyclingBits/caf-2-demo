@@ -48,6 +48,8 @@ data class Limit(
     val leasing: Boolean = false,
     @Column(nullable = false)
     val loan: Boolean = false,
+    @Column(nullable = false)
+    val amlRelevant: Boolean = false,
 ) {
     val status: LimitStatus
         get() {

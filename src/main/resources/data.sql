@@ -5,17 +5,17 @@ INSERT INTO contractor (name, nip) VALUES ('Spółka Handlowa', '5678901234');
 INSERT INTO contractor (name, nip) VALUES ('Zakład Usługowy', '2345678901');
 
 -- Initialize limits
-INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan) 
-VALUES (1, 'RETAIL', 100000.00, 'PLN', '2024-01-01', '2025-12-31', 95000.00, false, 'LEASING', true, false);
+INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan, aml_relevant) 
+VALUES (1, 'RETAIL', 100000.00, 'PLN', '2024-01-01', '2025-12-31', 95000.00, false, 'LEASING', true, false, true);
 
-INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan) 
-VALUES (1, 'RETAIL', 50000.00, 'EUR', '2024-01-01', '2025-12-31', 5000.00, true, 'ATHLON', false, true);
+INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan, aml_relevant) 
+VALUES (1, 'RETAIL', 50000.00, 'EUR', '2024-01-01', '2025-12-31', 5000.00, true, 'ATHLON', false, true, false);
 
-INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan) 
-VALUES (2, 'RETAIL', 75000.00, 'PLN', '2024-01-01', '2025-12-31', 15000.00, false, 'LEASING', true, true);
+INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan, aml_relevant) 
+VALUES (2, 'RETAIL', 75000.00, 'PLN', '2024-01-01', '2025-12-31', 15000.00, false, 'LEASING', true, true, true);
 
-INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan) 
-VALUES (3, 'RETAIL', 200000.00, 'PLN', '2024-01-01', '2025-04-10', 50000.00, false, 'ATHLON', false, false);
+INSERT INTO limits (contractor_id, type, limit_value, currency, date_from, date_to, used, suspended, company, leasing, loan, aml_relevant) 
+VALUES (3, 'RETAIL', 200000.00, 'PLN', '2024-01-01', '2025-04-10', 50000.00, false, 'ATHLON', false, false, false);
 
 -- Initialize CAF records
 INSERT INTO caf (limit_id, type, status) VALUES (1, 'INCREASE', 'IN_PROGRESS');
