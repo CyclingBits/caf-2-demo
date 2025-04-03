@@ -13,8 +13,4 @@ class RatingService(
     fun getRatingsByContractorId(contractorId: Long): List<Rating> {
         return ratingRepository.findByContractorId(contractorId)
     }
-
-    fun saveRating(rating: Rating): Rating {
-        return ratingRepository.save(rating)
-    }
 }
